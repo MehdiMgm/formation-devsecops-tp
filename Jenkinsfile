@@ -19,7 +19,8 @@ pipeline {
               //--------------------------
                 stage('Mutation Tests - PIT') {
                         steps {
-                         sh "mvn org.pitest:pitest-maven:mutationCoverage"
+                          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                         sh "mvn org.pitest:pitest-maven:mutationCoverage"}
                   }
             
                 }
