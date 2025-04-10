@@ -18,6 +18,8 @@ pipeline {
                                       always{
                                         junit 'target/surefire-reports/*.xml'
                                                     }
+                                                    
+                                  }}
               //--------------------------
                 stage('Mutation Tests - PIT') {
                     steps {
