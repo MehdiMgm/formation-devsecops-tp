@@ -9,5 +9,23 @@ pipeline {
             }
         }   
     }
+//--------------------------
+    stage('test unitaire ') {
+            steps {
+              sh "mvn test"
+            
+            }
+        }
+//--------------------------
+    stage('Mutation Tests - PIT') {
+      steps {
+        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+      }
+ 
+    }
+ 
+ 
+//--------------------------
+
 }
 ///// Je comrends mieux maintenant
