@@ -14,6 +14,11 @@ pipeline {
                             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                               sh "mvn test"}                      
                       
+                        }post{
+                          always{
+                            junit 'target/surefire-reports/*.xml'
+                          
+                          }
                         }
                     }
               //--------------------------
@@ -24,6 +29,20 @@ pipeline {
                   }
             
                 }
+              //--------------------------
+                          stage('Vulnerability Scan - Docker') {
+            steps {
+              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                sh "mvn dependency-check:check"
+              }
+            }
+            post{
+              always{
+               dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                jacoco(execPattern: 'target/jacoco.exec')
+              }
+            }
+           }
               //--------------------------
                 stage('Docker Build and Push') {
                         steps {
