@@ -53,17 +53,12 @@ stage('SonarQube Analysis') {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             // Utilisation des credentials de SonarQube
                                 // Exécution de l'analyse SonarQube avec Maven
-                    sh "
-                    mvn clean verify sonar:sonar \
+                    sh "sudo mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=H-ref \
                       -Dsonar.projectName='H-ref' \
                       -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \
-                      -Dsonar.token=sqp_52f2b1b94da483cf2770caf9a16e8a719ce64c5b
-
-                    "
-                }
-            
-        
+                      -Dsonar.token=sqp_52f2b1b94da483cf2770caf9a16e8a719ce64c5b"
+                                    }       
     }
 }
         // --------------- Stage de scan des vulnérabilités avec OWASP Dependency-Check ---------------
