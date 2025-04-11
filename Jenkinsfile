@@ -51,13 +51,13 @@ pipeline {
 stage('SonarQube Analysis') {
     steps {
         // Récupération du token SonarQube depuis Jenkins
-        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR')]) {                            
+        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR'),string(credentialsId: 'projectK', variable: 'projectK')]) {                            
                 // Capture les erreurs sans échouer le build
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     
                     // Exécution de l'analyse SonarQube avec Maven
                     sh """sudo mvn sonar:sonar \
-                          -Dsonar.projectKey=H-ref_formation \
+                          -Dsonar.$projectK=H-ref_formation \
                           -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \  // URL du serveur
                           -Dsonar.login=$SONAR  // Token d'authentification"""
                 }
