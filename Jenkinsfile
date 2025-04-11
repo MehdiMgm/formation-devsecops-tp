@@ -47,20 +47,23 @@ pipeline {
             }
         }
 
-        // --------------- Stage d'analyse SonarQube ---------------
+// --------------- Stage d'analyse SonarQube ---------------
 stage('SonarQube Analysis') {
     steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-            // Utilisation des credentials de SonarQube
-                                // Exécution de l'analyse SonarQube avec Maven
-                    sh "sudo mvn clean verify sonar:sonar \
-                      -Dsonar.projectKey=H-ref \
-                      -Dsonar.projectName='H-ref' \
-                      -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \
-                      -Dsonar.token=sqp_52f2b1b94da483cf2770caf9a16e8a719ce64c5b"
-                                    }       
+        // Récupération du token SonarQube depuis Jenkins
+        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR')]) {                            
+                // Capture les erreurs sans échouer le build
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    
+                    // Exécution de l'analyse SonarQube avec Maven
+                    sh """sudo mvn sonar:sonar \
+                          -Dsonar.projectKey=H-ref_formation \  // Clé unique du projet
+                          -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \  // URL du serveur
+                          -Dsonar.login=$SONAR  // Token d'authentification"""
+                }
+            }
+        }
     }
-}
         // --------------- Stage de scan des vulnérabilités avec OWASP Dependency-Check ---------------
         stage('Vulnerability Scan - Docker') {
             steps {
