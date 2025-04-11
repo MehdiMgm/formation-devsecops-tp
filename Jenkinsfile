@@ -7,7 +7,7 @@ pipeline {
         stage('Build Artifact') {
             steps {
                 // Nettoyage, compilation et packaging sans tests
-                sh "mvn clean package -DskipTests=true"
+                sh "sudo mvn clean package -DskipTests=true"
                 // Archivage des artefacts générés
                 archive 'target/*.jar'
             }
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     // Exécution des tests unitaires avec Maven
-                    sh "mvn test"
+                    sh "sudo mvn test"
                 }
             }
             post {
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     // Exécution des tests de mutation avec PIT (Mutation Testing)
-                    sh "mvn org.pitest:pitest-maven:mutationCoverage"
+                    sh "sudo mvn org.pitest:pitest-maven:mutationCoverage"
                 }
             }
             post {
