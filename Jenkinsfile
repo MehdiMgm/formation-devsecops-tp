@@ -57,7 +57,7 @@ stage('SonarQube Analysis') {
                     
                     // Exécution de l'analyse SonarQube avec Maven
                     sh """sudo mvn sonar:sonar \
-                          -Dsonar.projectKey=H-ref_formation \  // Clé unique du projet
+                          -Dsonar.projectKey=H-ref_formation \
                           -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \  // URL du serveur
                           -Dsonar.login=$SONAR  // Token d'authentification"""
                 }
@@ -85,9 +85,9 @@ stage('SonarQube Analysis') {
         // --------------- Stage de build et push Docker ---------------
         stage('Docker Build and Push') {
             steps {
-                withCredentials([string(credentialsId: 'password_DockHub', variable: 'DOCKER_HUB_PASSWORD')]) {
+                withCredentials([string(credentialsId: 'DockHub', variable: 'DOCKER_HUB_P')]) {
                     // Connexion à Docker Hub
-                    sh 'sudo docker login -u mehdimgm -p $DOCKER_HUB_PASSWORD'
+                    sh 'sudo docker login -u mehdimgm -p $DOCKER_HUB_P'
                     // Affichage des variables d'environnement pour debug
                     sh 'printenv'
                     // Construction de l'image Docker avec le commit Git
