@@ -44,6 +44,9 @@ pipeline {
             /// --------------------------        
 stage('SonarQube Analysis') {
     steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            sh "mvn sonar:sonar"
+        }
         withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
             withSonarQubeEnv('sonarqube') {
                 sh """
