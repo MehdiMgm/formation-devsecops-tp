@@ -41,7 +41,24 @@ pipeline {
               }
         
             }
-        ///////////////////////
+            /// --------------------------        
+stage('SonarQube Analysis') {
+    steps {
+        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
+            withSonarQubeEnv('sonarqube') {
+                sh """
+                    mvn sonar:sonar \
+                      -Dsonar.projectKey=H-ref_formation \
+                      -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9999 \
+                      -Dsonar.login=$SONAR_TOKEN
+                """
+            }
+        }
+    }
+}
+
+
+        /// --------------------------
  
         stage('Vulnerability Scan - Docker') {
   steps {
