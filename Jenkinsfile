@@ -56,10 +56,10 @@ stage('SonarQube Analysis') {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     
                     // Exécution de l'analyse SonarQube avec Maven
-                    sh """sudo mvn sonar:sonar \
+                          sh "sudo mvn sonar:sonar \
                           -Dsonar.$projectK=H-ref_formation \
-                          -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \  // URL du serveur
-                          -Dsonar.login=$SONAR  // Token d'authentification"""
+                          -Dsonar.host.url=http://formation.eastus.cloudapp.azure.com:9000 \
+                          -Dsonar.login=$SONAR"
                 }
             }
         }
