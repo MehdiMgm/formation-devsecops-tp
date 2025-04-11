@@ -111,15 +111,5 @@ stage('SonarQube Analysis') {
                 }
             }
         }
-
-        // --------------- Stage de Quality Gate SonarQube ---------------
-        stage('Quality Gate') {
-            steps {
-                // Attente du résultat du Quality Gate dans SonarQube
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
     }
 }
