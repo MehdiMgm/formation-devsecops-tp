@@ -1,19 +1,4 @@
 fileignoreconfig:
 - filename: Jenkinsfile
-  checksum: 227364d0a4225d1a47869e397f3a07e3de285c8bdbae3698a5aa30ee042f1a2e
-version: "1.0"
-
-fileignoreconfig:
-- filename: Jenkinsfile
-  checksum: a2327e2d66cbde46c2efa2d7ff48b51438e046d98b336504ef75740571d4a847
-version: "1.0"
-
-fileignoreconfig:
-- filename: Jenkinsfile
-  checksum: 34c1dd11877585ca67fb41262b501623cc98065dbce6f44eda3ffbbd321923e5
-version: "1.0"
-
-fileignoreconfig:
-- filename: Jenkinsfile
-  checksum: 3bc43ff6ea4d9b0f993274617272f8153221d3fb690470948f0188a401f84ee1
+  checksum: c59b9649b43cea2da854f14ef166b70162e04bdde3ce92f0ebc2fec5f2a75301
 version: "1.0"
