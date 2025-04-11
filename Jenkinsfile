@@ -66,7 +66,7 @@ stage('SonarQube Analysis') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     // Exécution du scan OWASP Dependency-Check pour les vulnérabilités de dépendances
-                    sh "mvn dependency-check:check"
+                    sh "sudo mvn dependency-check:check"
                 }
             }
             post {
